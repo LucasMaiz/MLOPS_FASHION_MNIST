@@ -1,0 +1,39 @@
+RESTful ml endpoint
+Échéance :28 janvier 2023 23:59
+Instructions
+You are creating a RESTful API that serves an ml model trained on the fashion-mnist dataset.
+The product manager then informed you that she wants the model that is being served by the
+RESTful endpoint to automatically update whenever a new trained model is created.
+Luckily, the trained model is small enough to fit on github (< 2 GB), so you can use github
+actions combined with your knowledge of Jenkins to automate the process of deploying a model.
+However, being the completionist you are, you are also creating a test to assure that the
+model didn't lose accuracy after training on the new data. If the test passes, the deployment proceeds.
+
+In this exercise, you are required to do the following:
+- build an ml model that trains on the dataset provided (at first, train on the fashion-mnist-train-1 file).
+
+- build a flask application that provides a RESTful API endpoint named "classify" that accepts a row of 
+  pixels (same format as the format of data provided in your training dataset) and returns the classification 
+  result. To make things simple, place the trained model inside the flask project, this way you can easily 
+  load it.
+
+- build a test that calls the url endpoint of your API, and tests the functionality (prepare a test case 
+  where you can hard-code the expected result, and compare the result of the API with your expected value)
+
+- put your code on one github repo.
+
+- setup a Jenkins project to build, run and test your code on a Docker image.
+
+At the end of your setup, you should be able to build your Jenkins project and a local Docker container 
+be running serving your model on (example) http://localhost:5000/classify. You can test it with Postman.
+
+Then, to simulate the re-training of your model after new data has arrived, you can train your model 
+again on the fashion-mnist-train-2 file, and once the training is done, add the trained model to the 
+flask application, and push to github.
+Your pipeline should deploy the new model on a container, which should have a better performance than 
+the previous one.
+
+**small discussion**
+In production, you would monitor the performance of newly trained model before deployment,. 
+In this scenario, you could for example save the performance of the current model before deploying the 
+new one. If the new model has worse performance, then further analysis needs to be dome to further optimise the new model (check if the new data is good, check model parameters, ...)
