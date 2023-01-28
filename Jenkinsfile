@@ -8,7 +8,7 @@ pipeline{
             steps{
                 bat 'git checkout dev'
                 //bat 'git pull'
-                //bat 'git branch -d staging'
+                bat 'git branch -d staging'
                 bat 'git checkout -b staging'
                 bat 'git push --set-upstream origin staging'
             }
